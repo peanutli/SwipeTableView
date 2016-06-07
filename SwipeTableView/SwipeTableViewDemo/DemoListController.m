@@ -46,6 +46,16 @@
     oneLabel.text = @"hello world";
     oneLabel.center = self.view.center;
     
+//    UIButton * button ;
+//    [button addTarget:self action:@selector(AAAAA) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:button];
+    
+    //测试
+//    if ([self respondsToSelector:@selector(AA)]) {
+//        [self performSelector:@selector(AA)];
+//    }
+   // [self performSelector:@selector(aaa:)];
+    
 }
 
 #pragma mark - UITableView M
