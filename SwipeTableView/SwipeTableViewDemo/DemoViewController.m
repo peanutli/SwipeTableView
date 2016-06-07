@@ -31,7 +31,9 @@ NSString const * kHiddenNavigationBarIdentifier = @"shouldHidenNavigationBar";
 
 @end
 
-@implementation DemoViewController
+@implementation DemoViewController{
+    NSString * title;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -70,6 +72,8 @@ NSString const * kHiddenNavigationBarIdentifier = @"shouldHidenNavigationBar";
     [self.view addSubview:back];
     
     [self.navigationController.navigationBar setTintColor:RGBColor(234, 39, 0)];
+
+    title = @"你好，世界";
     
     // edge gesture
     [_swipeTableView.contentView.panGestureRecognizer requireGestureRecognizerToFail:self.screenEdgePanGestureRecognizer];
@@ -86,6 +90,12 @@ NSString const * kHiddenNavigationBarIdentifier = @"shouldHidenNavigationBar";
         }
     }
     return screenEdgePanGestureRecognizer;
+}
+
+#pragma mark - publicMethod
+
+- (void)returnValueBlock:(ReturnValueBlock)returnValueBlock{
+    self.returnValueBlock = returnValueBlock;
 }
 
 #pragma mark -
@@ -240,6 +250,9 @@ NSString const * kHiddenNavigationBarIdentifier = @"shouldHidenNavigationBar";
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    if (self.returnValueBlock != nil) {
+        self.returnValueBlock(title);
+    }
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
@@ -251,6 +264,9 @@ NSString const * kHiddenNavigationBarIdentifier = @"shouldHidenNavigationBar";
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
+    if (self.returnValueBlock != nil) {
+        self.returnValueBlock(@"SB");
+    }
     [super viewDidDisappear:animated];
     self.navigationController.interactivePopGestureRecognizer.delegate = nil;
 }

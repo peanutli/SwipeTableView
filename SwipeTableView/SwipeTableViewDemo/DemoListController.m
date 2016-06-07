@@ -15,7 +15,9 @@
 
 @end
 
-@implementation DemoListController
+@implementation DemoListController{
+    UILabel * oneLabel;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,6 +40,12 @@
                             @"title":@"HiddenNavigationBar",
                             @"actionIdfy":kHiddenNavigationBarIdentifier,
                             }];
+    //测试block;
+    oneLabel = [[UILabel alloc]initWithFrame:CGRectMake(100, 100, 100, 100)];
+    [self.view addSubview:oneLabel];
+    oneLabel.text = @"hello world";
+    oneLabel.center = self.view.center;
+    
 }
 
 #pragma mark - UITableView M
@@ -52,11 +60,14 @@
 }
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-//这个是怎么传的viewController
+//viewController
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     DemoViewController * demoVC = [segue destinationViewController];
+    [demoVC returnValueBlock:^(NSString *title) {
+        oneLabel.text = title;
+    }];
     UITableViewCell * cell = sender;
     NSIndexPath * indexPath = [self.tableView indexPathForCell:cell];
     demoVC.actionIdentifier = _dataSource[indexPath.row][@"actionIdfy"];
